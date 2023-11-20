@@ -1,0 +1,43 @@
+#This is a PIN-based password system that allows you to create a PIN password
+#with a limit of three input attempts, once you reach that limit you'll have to 
+#input the PUK with another limit of three attempts and if you fail the phone will
+#be locked. 
+
+def create_pin():
+    pin = input("Please enter a new PIN number: ")
+    return pin
+
+
+pin = create_pin()
+max_pin_attempts = 3
+
+PUK ="123456789"
+max_puk_attempts = 3
+
+locked_out = False
+
+for attempt in range(max_pin_attempts):
+    pin_input = input("Please enter correct PIN: ")
+    
+    if pin_input == pin:
+        print("Log in successful")
+        break
+    else:
+        remaining_attempts = (max_pin_attempts - attempt - 1)
+        if remaining_attempts > 0:
+            print("Wrong PIN", remaining_attempts, "attempts remaining")
+        else:
+            print("Failed to input correct PIN")
+            for puk_attempt in range(max_puk_attempts):
+                puk_input =input("please enter your PUK: ")
+                            
+                if puk_input == PUK:
+                    print("Log in successful")
+                    break
+                else:
+                    remaining_puk_attempts = (max_puk_attempts - puk_attempt - 1)
+                    if remaining_puk_attempts > 0:
+                        print("Wrong PUK", remaining_puk_attempts, "attempts remaining")
+                    else: 
+                        print("System locked, please contact your phone provider")
+                        break

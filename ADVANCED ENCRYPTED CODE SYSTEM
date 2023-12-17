@@ -1,0 +1,60 @@
+import hashlib
+
+def create_phone_password():
+    phone_password = input("Please enter a new phone password: ")
+    return phone_password
+
+def create_password():
+    riddle = "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?"
+    answer = "an echo"
+    hashed_answer = hashlib.sha256(answer.encode()).hexdigest()
+    return riddle, hashed_answer
+
+def main():
+    phone_password = create_phone_password()
+    print("Not so fast !!! Looks like an encrypted code is required in order to access this phone. You will have to unlock the code by providing the answer for a riddle. Here's the riddle:")
+    
+    riddle, correct_answer_hash = create_password()
+    print(riddle)
+    
+    user_answer = input("Your answer: ")
+    
+    if user_answer.lower() == "an echo":
+        print("Correct! Here is the encrypted code, remember that you will have to input it after you input your password:")
+        print("Hashed Answer:", correct_answer_hash)
+        return phone_password, correct_answer_hash
+    else:
+        print("Incorrect answer. Access denied.")
+        return None, None
+
+if __name__ == "__main__":
+    phone_password, correct_answer_hash = main()
+
+if phone_password and correct_answer_hash:
+    max_attempts = 3
+
+    for attempt in range(max_attempts):
+        user_attempt = input("Now yes !! First, enter the phone password you created before: ")
+        if user_attempt == phone_password:
+            print("Correct! Now you'll need the encrypted code provided before")
+            break
+        else:
+            attempts_number = max_attempts - attempt - 1
+            if attempts_number > 0:
+                print("Wrong password", attempts_number, "attempts remaining")
+            else:
+                print("Max attempts reached. System blocked you wanna-be hacker")
+
+    max_encrypted_attempts = 3
+
+    for attempt_encrypted in range(max_encrypted_attempts):
+        user_hash_attempt = input('Please enter the encrypted code: ')
+        if user_hash_attempt == correct_answer_hash:
+            print("Now you have access to this phone full of memes and dirty secrets")
+            break
+        else:
+            hashed_attempts_number = max_encrypted_attempts - attempt_encrypted - 1
+            if hashed_attempts_number > 0:
+                print("Wrong code", hashed_attempts_number, 'attempts remaining, come on bro, it is just copy and paste')
+            else:
+                print("Max attempts reached, this phone is blocked you wanna-be hacker")

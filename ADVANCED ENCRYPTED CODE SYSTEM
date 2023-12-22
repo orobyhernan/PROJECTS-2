@@ -1,4 +1,4 @@
-·This is a Python file
+```python
 import hashlib 
 #first let's set the function that creates a phone password
 

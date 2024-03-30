@@ -1,0 +1,208 @@
+#THE ATHLETES DATA FRAME
+
+#So the athletic association in my city has 
+#quite a messy way to organize its athletes in each 200m indoor heat, you get athletes 
+#from different levels mixed together, very fast ones and very slow ones
+#in the same heat, which leads to unfair competition. We are going to 
+#organize athletes differently to make it more even, according to their 200m times
+
+#First, let's import pandas and load the excel file we're going 
+#to turn into a dataframe
+
+import pandas as pd
+
+
+#athletes_excel_file = r'C:\Users\orobo\.spyder-py3\MY PROJECTS\GITHUB PROJECTS\contents\ATHLETES DATAFRAME'
+
+#df = pd.read_excel(athletes_excel_file)
+
+print(df)
+
+#since you are reading this from another computer you won't be able to access the
+#file directory so I'm just gonna take the data, create a dictionary with it and turn it
+#into a data frame. 
+
+```
+athletes = [
+    {"name": "Daniel", "year": 2005, "time": 21.87, "heat": 1, "lane": 5},
+    {"name": "Diego", "year": 2008, "time": 23.87, "heat": 1, "lane": 3},
+    {"name": "Jorge", "year": 2002, "time": 23.92, "heat": 1, "lane": 4},
+    {"name": "Pelayo", "year": 2007, "time": 24.06, "heat": 1, "lane": 1},
+    {"name": "Javier", "year": 1991, "time": 24.5, "heat": 1, "lane": 6},
+    {"name": "Sergio", "year": 2003, "time": 22.27, "heat": 2, "lane": 5},
+    {"name": "Jesús", "year": 2000, "time": 24.02, "heat": 2, "lane": 4},
+    {"name": "Marco", "year": 2006, "time": 25.88, "heat": 2, "lane": 3},
+    {"name": "Teo", "year": 2008, "time": 26.88, "heat": 2, "lane": 1},
+    {"name": "Daniel", "year": 2007, "time": 28.07, "heat": 2, "lane": 2},
+    {"name": "Daniel Quero", "year": 1996, "time": 28.69, "heat": 2, "lane": 6},
+    {"name": "Marco Antonio", "year": 1996, "time": 22.07, "heat": 3, "lane": 5},
+    {"name": "Javier", "year": 2003, "time": 22.6, "heat": 3, "lane": 6},
+    {"name": "Marcelo", "year": 2008, "time": 24.19, "heat": 3, "lane": 3},
+    {"name": "Asier", "year": 2007, "time": 24.8, "heat": 3, "lane": 1},
+    {"name": "Alberto", "year": 1995, "time": 27.17, "heat": 3, "lane": 2},
+    {"name": "David", "year": 1986, "time": 29.87, "heat": 3, "lane": 4},
+    {"name": "Álvaro", "year": 2000, "time": 23.03, "heat": 4, "lane": 6},
+    {"name": "Daniel", "year": 2000, "time": 23.36, "heat": 4, "lane": 5},
+    {"name": "Yago", "year": 2007, "time": 24.01, "heat": 4, "lane": 4},
+    {"name": "Alejandro", "year": 2006, "time": 24.56, "heat": 4, "lane": 1},
+    {"name": "Javier", "year": 2006, "time": 24.58, "heat": 4, "lane": 3},
+    {"name": "David Hernández", "year": 2004, "time": 25.37, "heat": 4, "lane": 2},
+    {"name": "Xian", "year": 2002, "time": 22.77, "heat": 5, "lane": 5},
+    {"name": "Manuel", "year": 2008, "time": 24.29, "heat": 5, "lane": 2},
+    {"name": "Elkin", "year": 2003, "time": 24.43, "heat": 5, "lane": 4},
+    {"name": "Marcos", "year": 2008, "time": 24.81, "heat": 5, "lane": 3},
+    {"name": "Asier", "year": 2001, "time": 26.25, "heat": 5, "lane": 1},
+    {"name": "Domingo", "year": 1999, "time": 20.97, "heat": 5, "lane": 6}
+]
+``` 
+
+#let's print the data frame to be able to visualize it
+
+df = pd.DataFrame(athletes)
+#print(df)
+
+#explanation: As you can see we have different heats, each one with six athletes
+#different lanes for each athlete, but he problem, as explained earlier, is that
+#athletes of different levels ar mixed together so you get very fast athletes 
+#with very slow athletes,which makes competition unfair. We are going to re-arrange heats
+#and lanes, sou you get athletes of similar speed on each heat. We are going to
+#arrange all athletes from fastest to slowest. 
+
+#First we need to get rid of the last two columns
+
+
+df_new = df.drop(columns = ['lane', 'heat'])
+#print(df_new)
+
+
+
+
+
+#Now we can freely rearrange all athletes from fastest to slowest
+#We are going to sort the whole dataframe using the 'time' column as reference
+#we will sort all times in ascending order
+
+
+df_sorted = df_new.sort_values(by='time')
+#print(df_sorted)
+
+
+
+#Now here comes the tricky part, We want to assign every six athletes a different
+#lane in ascending order, the first six get heat 1, the next six get
+#heat 2 and so on and so forth. We are going to use a nested loop to generate the 
+#heat numbers
+
+#First we need to calculate the total number of athletes in the dataframe
+
+
+num_athletes = len(df_sorted)
+
+
+
+#now we will calculate the number of groups (total heats)
+
+
+
+num_groups = (num_athletes + 5) // 6
+
+
+
+#what we did here is we add five to the total number to ensure that 
+#the division rounds up to the nearest integer (which is the number of
+#athletes per heat)
+
+#now let's initialize a list. We will use the 
+#following command to store the values of an empty list
+
+
+heat_numbers = [] 
+
+
+#Even trickier, we will write a nested loop that iterates over each group of athletes
+#(heats) and assigns the same number to every athlete on each group
+
+
+
+ 
+for heat in range(1, num_groups + 1):
+    for _ in range(6):
+        heat_numbers.append(heat)
+
+
+
+
+#What is happening here is that the outer loop iterates over the total 
+#number of groups needed to assign each athlete in each group the same heat number
+
+#the inner loop iterates through values from 0 to 5, completing 6 iterations
+#which is the total number of athletes per heat in a 200m race (total no. of athletes
+#per group in our code)
+
+#but what it does is it just appends the current "heat" number to the "heat_numbers"
+#list 6 times, successfully assigning the same number to each athlete
+#in every group we have
+
+
+
+#Now we are going to generate a new column called "heats"
+
+
+
+df_sorted['heat'] = heat_numbers[:num_athletes]
+
+
+
+
+#What this is doing apart of creating the new column is assigning 
+#the generated heat numbers before to just as much athletes as there
+#are in total, trimming any excess athletes just in case
+#now let's print the result
+
+#print(df_sorted)
+
+
+#Now even trickier, we want to assign each athlete to a lane. In athletics
+#the two fastest athletes in a heat are assigned lanes 6 and 5, and the rest,
+#are assigned the remaining lanes in descending order according to their times 
+#in descending order as well.
+
+#We already calculated the total no. of athletes using the len() function so now 
+#we are going to round up the total no. of athletes to the nearest integer again
+
+
+lane_groups = (num_athletes + 5) // 6
+
+#we create another empty list for the lanes this time
+
+
+lane_numbers = []
+
+
+#and another loop, the outer loop iterates through the groups
+#of athleets created to be fit into the lane, and the inner loop
+#this time what it does is iterating from 6 to 1, given that, as mentioned,
+#we want to assign these numbers in descending order to each athlete on every group
+
+
+
+
+for lane in range(1, lane_groups + 1):
+    for i in range(6, 0, -1):
+        lane_numbers.append(i)
+
+
+
+#we create a new column called lane, trimming any excess athletes from the
+#num_athletes list
+        
+        
+df_sorted['lane'] = lane_numbers[:num_athletes]
+
+
+
+#and we print it, problem solved !!!
+
+
+
+print(df_sorted)

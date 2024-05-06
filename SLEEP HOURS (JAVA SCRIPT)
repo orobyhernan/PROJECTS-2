@@ -1,0 +1,78 @@
+/*Sleep is important and in order to track how much a user has slept, I have created a system that calcultes the total amount of hours seltp during the week
+and information about these hours, advicing the user to sleep more or less, according to his/her ideal sleep hours*/ 
+
+
+/*First off we'll write the function that returns the number of hours we've slept each day */
+function getSleepHours(day) {
+  switch(day.toLowerCase()) {
+    case 'monday':
+      return 8;
+    case 'tuesday':
+      return 7;
+    case 'wednesday':
+      return 10;
+    case 'thursday':
+      return 9;
+    case 'friday':
+      return 8;
+    case 'saturday':
+      return 11;
+    case 'sunday':
+      return 14;
+  }
+}
+/*And now the statement that prints out the no. of hours */
+console.log(getSleepHours('Saturday'));
+
+/*Now we are gonna create a function to get the total sleep hours that I actually slept, in ordert o achieve that, we will calculate the sum of the total hours of sleep by calling the previous function for each day of the week (super inneficient but whatever)  */
+
+function getActualSleepHours() {
+  let totalHours = getSleepHours('monday') + getSleepHours('tuesday') + getSleepHours('wednesday') + getSleepHours('thursday') + getSleepHours('friday') + getSleepHours('saturday') + getSleepHours('sunday')
+  return totalHours
+}
+
+/*This will print the final result */
+console.log('This week I have slept a total of ' + getActualSleepHours() + ' hours');
+
+/*Now we will create a function to get the ideal 
+no. of hours of sleep*/
+
+function getIdealSleepHours() {
+  let idealHours = 9 /*We define this variable with the ideal hours of sleep per night */
+  return (idealHours * 7); /*And no we multiply it by seven and return it */
+}
+/*And print out the result with a sentence */
+console.log('I should be getting a total of ' + getIdealSleepHours() + ' of sleep per week');
+
+
+/*Now it's time to calculate the sleep debt, we will start by creating a function*/ 
+
+function calculateSleepDebt() {
+  let actualSleepHours = getActualSleepHours(); 
+  let idealSleepHours = getIdealSleepHours(); /*We define two variables */
+
+/* This function right here defines wether in one of the preinted outputs below it should say there's a deficit or superavit of hours of sleep by defining a variable and then printing out one word or another depending on the hours slept
+*/ 
+  let sleepHourdeficit = actualSleepHours - idealSleepHours;
+  if (actualSleepHours < idealSleepHours) {
+     debtsuperavit = 'debt'
+  } else {
+    debtsuperavit = 'superavit'
+  }
+
+
+  console.log('The user has a ' + debtsuperavit + ' of ' +  sleepHourdeficit + ' hours of sleep') /*The debt superavit variable will print a different output depending on if we have slept more than the ideal hours or less*/  
+
+
+/*Now this will print another output depending on how many hours we have slept, telling the user to get more hours of sleep or telling him/her he has overslept */
+  if (actualSleepHours === idealSleepHours) 
+    return 'The user got perfect amount of sleep';
+  else if (actualSleepHours > idealSleepHours) {
+    return 'The user got more sleep than needed'
+  } else {
+    return 'The user should get more rest'
+  }
+}
+
+/*and this command will print out the result */
+console.log(calculateSleepDebt());

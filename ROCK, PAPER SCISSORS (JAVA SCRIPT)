@@ -1,0 +1,75 @@
+/*I have written a code snippet that uses functions in Javascript in order to play rock, paper scissors 
+it uses a random generator in order to get the computer's choice   */
+
+
+
+
+/*First this function is going to get the user's input, meaning the choice*/ 
+
+const getUserChoice = userInput => {
+  userInput = userInput.toLowerCase(); /*Converts the input into lowercase*/
+  if (userInput === 'rock' || userInput === 'paper' || userInput === 'scissors') {
+    return userInput; /*Returns the user input if it follows the condition*/
+  } else {
+    console.log('Invalid choice'); /*If there's any other input besides those 2 it prints an error */
+  }
+}
+  
+console.log(getUserChoice('scissors')); /*Calls out the function and prints the result */
+
+
+/* This function generates a random number and assings said number to a value from before rock, paper or scissors*/
+
+function getComputerChoice() {
+  let randomNumber = Math.floor(Math.random() * 3); /*This generates the random number*/
+  if (randomNumber === 0) {
+    return 'rock' 
+  } else if (randomNumber === 1) {
+    return 'paper'
+  } else if (randomNumber === 2) {
+    return 'scissors' /* Now this assigns the conditions to which number each rock paper or scissors corresponds to*/
+  }
+}
+
+/* Now the following code executes the function and gives as an output*/
+console.log(getComputerChoice());
+
+
+ComputerChoice = getComputerChoice();
+
+/*Now the following function will determine a winner */
+function determineWinner(userChoice, computerChoice) {
+  if (userChoice === computerChoice) {
+    return 'The game was a tie';
+  } else if (
+    (userChoice === 'paper' && computerChoice === 'rock') ||
+    (userChoice === 'rock' && computerChoice === 'scissors') ||
+    (userChoice === 'scissors' && computerChoice === 'paper')
+  ) {
+    return 'User finally won';
+  } else {
+    return 'Computer won, ugh!';
+  }
+}
+
+
+
+/*Now this will print out the result*/
+console.log(determineWinner('paper', ComputerChoice));
+
+/*I don't want to type the user choise all the time 
+inside the function, so I have cmade a variable to include it permanently inside the function and change it outside down below*/
+functionuserchoice = 'rock'
+
+
+/*Now this function will retrieve my choice and the computer choice by calling it from the previous functions */
+function playGame() {
+  const userChoice = getUserChoice(functionuserchoice); /* This function calls the variable I have written outside of the funcion and I change manually*/
+  const computerChoice = getComputerChoice(); /*Now this one calls the getComputerChoice() function from before that has a random number generator in order to assign it to rock, paper or scissors, and assings it to a variable so it can be printed out in the console log*/
+  console.log('You threw ' + userChoice); /*This command prints out my choice */ 
+  console.log('The computer threw ' + computerChoice);  /*This command prints out the computer's choice*/ 
+  console.log(determineWinner(userChoice, computerChoice)); /* This calls out the previous function that determines the winner*/
+}
+
+/*Nos this calls the function game in order to print out the result */
+playGame();

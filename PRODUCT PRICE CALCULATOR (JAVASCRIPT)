@@ -1,0 +1,59 @@
+/*So we work for  a company and we have a database with prices and we need to set up the backend to calculate prices for different products and categories, this data base we have an array of objects, each object represents a product and contains information such as name, category, price and quantity. here are the conditions our manager gave us */
+
+/* The data set is stored in an array of objects*/
+/* Ech object has property names as 'name', 'category', 'price' and quantity*/
+
+/*Your task is to design a solution that*/
+
+   /*Iterates over the data set*/
+   /*Calculates the total price for each category*/
+   /*Stores these calculated values in a data structure for further processing*/
+
+/*So let's begin. We want to calculate the total price for the different sections, here is our data set */
+
+const products = [
+  { name: "Laptop", category: "Electronics", price: 999.99, quantity: 10 },
+  { name: "Smartphone", category: "Electronics", price: 699.99, quantity: 20 },
+  { name: "Headphones", category: "Electronics", price: 99.99, quantity: 30 },
+  { name: "T-shirt", category: "Clothing", price: 19.99, quantity: 50 },
+  { name: "Jeans", category: "Clothing", price: 39.99, quantity: 25 },
+  { name: "Sneakers", category: "Footwear", price: 79.99, quantity: 15 },
+  { name: "Sandals", category: "Footwear", price: 29.99, quantity: 20 },
+];
+
+/* First we create a variable to select the target category*/
+
+
+let targetCategory = "Electronics";
+
+
+
+/*And now we define the total price, we set it to zero as we will be adding to it the sum of the prices */
+
+
+let totalPrice = 0;
+
+/*We do the same thing with the quantity, as we will multiply this quantity to the price for each product*/
+
+
+let totalQuantity = 0;
+
+
+/* Now we will set a loop that first iterates the whole array, later on we will select the specific category for each one*/
+
+
+
+for (i = 0; i < products.length; i++) {
+  if (products[i].category === targetCategory) {
+  	totalPrice = totalPrice + (products[i].price * products[i].quantity);
+  	totalQuantity = totalQuantity + products[i].quantity;
+  }
+}
+/*The i corresponds to the object inside each property and next to it we type the property we want to target (category, price, quantity, etc)*/
+
+/*Here what we did is we first set up the loop that iterates through the total length of the array of products: if the product's category matches that of our target category, the loop will multiply the products price from that category by the quantities that match that category */
+
+
+
+/*Now we create an output for the total price*/
+console.log(totalPrice);

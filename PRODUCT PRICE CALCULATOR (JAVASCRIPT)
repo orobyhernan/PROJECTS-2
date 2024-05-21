@@ -55,14 +55,17 @@ for (i = 0; i < products.length; i++) {
 
 
 
-/*Now we create an output for the total price*/
+/* Now bear with me on this one, we want to calculate the total price 
+but we still want to know the price we are paying for each category, so we will aslo write a function that gives us the price for each object in the selected category*/
+
+
 
 function selectCategory () {
-  let orderArray = ['first','second','third', 'fourth'];
-  let orderIndex = 0;
+  let orderArray = ['first','second','third', 'fourth'];    /*Array for the order of products */
+  let orderIndex = 0;                                        /*Indexing for the previous array*/
   for (i = 0; i < products.length; i++) {
-    if (products[i].category === targetCategory) {
-      if (orderIndex < orderArray.length) {
+    if (products[i].category === targetCategory) {          /*iterating through the products in the selected category above */
+      if (orderIndex < orderArray.length) {                 /*Iterating through the elements in the order array to print out in which order each product is */
         console.log('The price for the ' + orderArray[orderIndex] + ' ' + products[i].category + ' product is ' + products[i].price) + ' $';
         orderIndex++;
       }
@@ -70,10 +73,19 @@ function selectCategory () {
   }
 }
 
+/* This function iterates through the products that correspond to the selected category (if (products[i].category === targetCategory)) 
+and is also iterating through the order array. Now what we got in the console.log() output:
 
+- (products[i].category) will print out the products from the selected category
 
+- (products[i].price) will print out the price for each product individually in said category, 
 
-
+- (orderArray[orderIndex]) will iterate through the order array to give each product it's place (first, second, third)
+the reason why we type [orderindex] between brackets it's because we want to iterate through each element inside the array,
+and we set it as a variable with a value of zero because we start from the first element, remeber arrays are zero indexed */
+ 
+/*Now we set a series of console logs with strings to print out 
+the desired output in a structured way*/
 
 console.log('So here is the recap')
 console.log('The total price for all ' + targetCategory + ' products is ' +totalPrice + ' $');
